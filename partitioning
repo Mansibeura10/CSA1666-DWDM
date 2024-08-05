@@ -1,0 +1,27 @@
+# Define the marks scored by the student
+marks <- c(55, 60, 71, 63, 55, 65, 50, 55, 58, 59, 61, 63, 65, 67, 71, 72, 75)
+
+# (a) Equal-Frequency Partitioning (Equi-depth)
+# Compute breakpoints for equal-frequency partitioning
+breaks_equal_freq <- quantile(marks, probs = seq(0, 1, 1/3), na.rm = TRUE)
+
+# Create a factor variable for equal-frequency bins
+marks_equal_freq <- cut(marks, breaks = breaks_equal_freq, include.lowest = TRUE)
+
+# Plot histogram for equal-frequency partitioning
+hist(marks, breaks = breaks_equal_freq, main = "Histogram - Equal-Frequency Partitioning",
+     xlab = "Marks Scored", ylab = "Frequency", col = "skyblue", border = "white")
+
+# (b) Equal-Width Partitioning
+# Compute breakpoints for equal-width partitioning
+min_mark <- min(marks)
+max_mark <- max(marks)
+bin_width <- (max_mark - min_mark) / 3
+breaks_equal_width <- seq(min_mark, max_mark, by = bin_width)
+
+# Create a factor variable for equal-width bins
+marks_equal_width <- cut(marks, breaks = breaks_equal_width, include.lowest = TRUE)
+
+# Plot histogram for equal-width partitioning
+hist(marks, breaks = breaks_equal_width, main = "Histogram - Equal-Width Partitioning",
+     xlab = "Marks Scored", ylab = "Frequency", col = "lightgreen", border = "white")
