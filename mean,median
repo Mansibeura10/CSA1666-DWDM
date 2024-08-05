@@ -1,0 +1,29 @@
+# Scores of the two classes
+class_A <- c(76, 35, 47, 64, 95, 66, 89, 36, 84)
+class_B <- c(51, 56, 84, 60, 59, 70, 63, 66, 50)
+
+# Calculate mean, median, and range for Class A
+mean_A <- mean(class_A)
+median_A <- median(class_A)
+range_A <- range(class_A)
+range_A_value <- range_A[2] - range_A[1]
+
+# Calculate mean, median, and range for Class B
+mean_B <- mean(class_B)
+median_B <- median(class_B)
+range_B <- range(class_B)
+range_B_value <- range_B[2] - range_B[1]
+
+# Print the results
+cat("Class A - Mean:", mean_A, "Median:", median_A, "Range:", range_A_value, "\n")
+cat("Class B - Mean:", mean_B, "Median:", median_B, "Range:", range_B_value, "\n")
+
+# Create boxplots for the two classes
+boxplot(class_A, class_B, names = c("Class A", "Class B"), main = "Boxplot of Scores for Class A and Class B", ylab = "Scores", col = c("lightblue", "lightgreen"))
+
+# Display the results
+results <- list(
+  class_A = list(mean = mean_A, median = median_A, range = range_A_value),
+  class_B = list(mean = mean_B, median = median_B, range = range_B_value)
+)
+results
