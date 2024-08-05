@@ -1,0 +1,62 @@
+# Load necessary library
+library(ggplot2)
+
+# Original data
+data <- c(1,1,5,5,5,5,5,8,8,10,10,10,10,12,14,14,14,15,15,15,15,15,15,
+          18,18,18,18,18,18,18,18,20,20,20,20,20,20,20,21,21,21,21,
+          25,25,25,25,25,28,28,30,30,30)
+
+# Number of bins
+bins <- 3
+
+# Calculate number of elements per bin
+elements_per_bin <- length(data) / bins
+
+# Partition the data into equal-frequency bins
+partitioned_data <- split(data, ceiling(seq_along(data) / elements_per_bin))
+
+# Function to apply bin means
+bin_means <- function(bin) {
+  mean_value <- mean(bin)
+  rep(mean_value, length(bin))
+}
+
+# Function to apply bin boundaries
+bin_boundaries <- function(bin) {
+  lower_bound <- min(bin)
+  upper_bound <- max(bin)
+  sapply(bin, function(x) {
+    if (abs(x - lower_bound) < abs(x - upper_bound)) {
+      return(lower_bound)
+    } else {
+      return(upper_bound)
+    }
+  })
+}
+
+# Apply data smoothing using bin means
+smoothed_means <- unlist(lapply(partitioned_data, bin_means))
+
+# Apply data smoothing using bin boundaries
+smoothed_boundaries <- unlist(lapply(partitioned_data, bin_boundaries))
+
+# Plot histogram for the original data
+hist(data, breaks = 10, col = "lightblue", main = "Histogram of Original Data",
+     xlab = "Price", ylab = "Frequency")
+
+# Plot histogram for smoothed data (bin means)
+hist(smoothed_means, breaks = 10, col = "lightgreen", main = "Histogram of Smoothed Data (Bin Means)",
+     xlab = "Price", ylab = "Frequency")
+
+# Plot histogram for smoothed data (bin boundaries)
+hist(smoothed_boundaries, breaks = 10, col = "lightcoral", main = "Histogram of Smoothed Data (Bin Boundaries)",
+     xlab = "Price", ylab = "Frequency")
+
+# Display the partitioned and smoothed data
+cat("Partitioned Data:\n")
+print(partitioned_data)
+cat("\nSmoothed Data (Bin Means):\n")
+print(smoothed_means)
+cat("\nSmoothed Data (Bin Boundaries):\n")
+print(smoothed_boundaries)
+
