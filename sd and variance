@@ -1,0 +1,19 @@
+# Given data
+AvgSpeed <- c(78, 81, 82, 74, 83, 82, 77, 80, 70)
+TotalTime <- c(39, 37, 36, 42, 35, 36, 40, 38, 46)
+
+# Calculate standard deviation
+sd_AvgSpeed <- sd(AvgSpeed)
+sd_TotalTime <- sd(TotalTime)
+
+# Calculate variance
+var_AvgSpeed <- var(AvgSpeed)
+var_TotalTime <- var(TotalTime)
+
+# Output the results
+list(
+  Standard_Deviation_AvgSpeed = sd_AvgSpeed,
+  Standard_Deviation_TotalTime = sd_TotalTime,
+  Variance_AvgSpeed = var_AvgSpeed,
+  Variance_TotalTime = var_TotalTime
+)
