@@ -1,0 +1,25 @@
+# Load necessary libraries
+library(cluster)
+
+# Sales price records
+prices <- c(5, 10, 11, 13, 15, 35, 50, 55, 72, 92, 204, 215)
+
+# (a) Equal-Frequency Partitioning
+equal_frequency_bins <- split(prices, ceiling(seq_along(prices) / (length(prices) / 3)))
+names(equal_frequency_bins) <- c("Bin 1", "Bin 2", "Bin 3")
+
+# (b) Equal-Width Partitioning
+range_width <- (max(prices) - min(prices)) / 3
+bin_edges <- seq(min(prices), max(prices), by = range_width)
+equal_width_bins <- cut(prices, breaks = bin_edges, include.lowest = TRUE, labels = c("Bin 1", "Bin 2", "Bin 3"))
+
+# (c) Clustering
+set.seed(42)  # For reproducibility
+kmeans_result <- kmeans(prices, centers = 3)
+clustering_bins <- split(prices, kmeans_result$cluster)
+names(clustering_bins) <- paste("Cluster", 1:3)
+
+# Print the results
+equal_frequency_bins
+equal_width_bins
+clustering_bins
