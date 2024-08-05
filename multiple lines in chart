@@ -1,0 +1,16 @@
+# Load the mtcars dataset
+data("mtcars")
+
+# Extract the attributes
+mpg <- mtcars$mpg
+qsec <- mtcars$qsec
+
+# Create a matrix combining the two attributes
+data_matrix <- cbind(mpg, qsec)
+
+# Create the line chart using matplot
+matplot(data_matrix, type = "l", lty = 1, col = c("blue", "red"), 
+        xlab = "Index", ylab = "Values", main = "Multiple Lines in Line Chart")
+
+# Add a legend
+legend("topright", legend = c("mpg", "qsec"), col = c("blue", "red"), lty = 1)
