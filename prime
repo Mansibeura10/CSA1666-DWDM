@@ -1,0 +1,27 @@
+num = as.integer(readline(prompt="Enter a number: "))
+
+# Check if the input is a valid integer
+if (is.na(num)) {
+  print("Invalid input. Please enter a valid integer.")
+} else {
+  flag = 0
+  # Prime numbers are greater than 1
+  if (num > 1) {
+    flag = 1
+    # Check for factors
+    for (i in 2:(num - 1)) {
+      if ((num %% i) == 0) {
+        flag = 0
+        break
+      }
+    }
+  }
+  
+  # Output the result
+  if (flag == 1) {
+    print(paste(num, "is a prime number"))
+  } else {
+    print(paste(num, "is not a prime number"))
+  }
+}
+
