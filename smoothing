@@ -1,0 +1,36 @@
+# Create the vector of prices
+prices <- c(1, 1, 5, 5, 5, 5, 5, 8, 8, 10, 10, 10, 10, 12, 14, 14, 14, 15, 15, 15, 
+            15, 15, 15, 18, 18, 18, 18, 18, 18, 18, 18, 20, 20, 20, 20, 20, 20, 20, 
+            21, 21, 21, 21, 25, 25, 25, 25, 25, 28, 28, 30, 30, 30)
+
+# Equal-frequency partitioning with 3 bins
+n <- length(prices)
+k <- 3
+bin_size <- ceiling(n / k)
+
+# Partition the data into bins
+bins <- split(prices, ceiling(seq_along(prices) / bin_size))
+
+# Smoothing by bin means
+bin_means <- lapply(bins, mean)
+smoothed_means <- unlist(lapply(seq_along(bins), function(i) rep(bin_means[[i]], length(bins[[i]]))))
+
+# Smoothing by bin boundaries
+bin_boundaries <- lapply(bins, function(bin) {
+  min_val <- min(bin)
+  max_val <- max(bin)
+  sapply(bin, function(x) ifelse(x - min_val <= max_val - x, min_val, max_val))
+})
+smoothed_boundaries <- unlist(bin_boundaries)
+
+# Set up the graphics layout for three histograms
+par(mfrow = c(3, 1))
+
+# Plot histogram for the original data
+hist(prices, breaks = 10, col = "lightblue", main = "Original Data", xlab = "Prices", ylab = "Frequency")
+
+# Plot histogram for data smoothed by bin means
+hist(smoothed_means, breaks = 10, col = "lightgreen", main = "Data Smoothed by Bin Means", xlab = "Prices", ylab = "Frequency")
+
+# Plot histogram for data smoothed by bin boundaries
+hist(smoothed_boundaries, breaks = 10, col = "lightcoral", main = "Data Smoothed by Bin Boundaries", xlab = "Prices", ylab = "Frequency")
