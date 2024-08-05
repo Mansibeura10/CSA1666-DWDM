@@ -12,3 +12,9 @@ mean_val <- mean(data)
 sd_val <- sd(data)
 z_score_normalized <- (data - mean_val) / sd_val
 cat("Z-Score Normalized Data:", z_score_normalized, "\n")
+
+j <- ceiling(log10(max(abs(data))))
+
+decimal_scaling <- data / (10^j)
+decimal_scaling
+
